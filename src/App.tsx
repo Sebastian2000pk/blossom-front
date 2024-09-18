@@ -1,22 +1,9 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import type { Character } from "./interfaces/character";
 import { HeartIcon } from "./icons/HearIcon";
+import { useCharacters } from "./hooks/useCharacters";
 
-// Services
-import { getCharacters } from "./services/characterServices";
-getCharacters();
 function App() {
-  const [characters, setCharacters] = useState<Character[]>([]);
-
-  useEffect(() => {
-    getCharactersList();
-  }, []);
-
-  const getCharactersList = async () => {
-    const charactersList = await getCharacters();
-    setCharacters(charactersList);
-  };
+  const { characters } = useCharacters();
 
   return (
     <div className="px-4">
