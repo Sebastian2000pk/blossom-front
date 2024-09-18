@@ -14,7 +14,8 @@ export const CharacterItem = ({
   addFavorite,
   removeFavorite,
 }: CharacterItemProps) => {
-  const handleFavorite = () => {
+  const handleFavorite = (e: any) => {
+    e.preventDefault();
     if (character.favorite) {
       removeFavorite(character.id!);
     } else {
