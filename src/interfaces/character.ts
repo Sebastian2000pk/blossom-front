@@ -4,4 +4,5 @@ export interface Character {
   status: string;
   species: string;
   image?: string;
+  favorite?: boolean;
 }
