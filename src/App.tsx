@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import type { Character } from "./interfaces/character";
+import { HeartIcon } from "./icons/HearIcon";
 
 // Services
 import { getCharacters } from "./services/characterServices";
@@ -30,7 +31,7 @@ function App() {
             <p>{character.species}</p>
           </div>
           <span>
-            {character.status === "Alive" ? "🟢" : "🔴"}
+            <HeartIcon filled={false} color="gray" />
           </span>
         </div>
       ))}
