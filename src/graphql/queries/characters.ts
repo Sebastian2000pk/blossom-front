@@ -11,3 +11,15 @@ export const GET_CHARACTERS = gql`
     }
   }
 `;
+
+export const GET_CHARACTER = gql`
+  query character($id: ID!) {
+    character(id: $id) {
+      name
+      status
+      species
+      image
+      gender
+    }
+  }
+`;
