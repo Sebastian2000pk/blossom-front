@@ -8,12 +8,11 @@ import { DescriptionCharacter } from "./screens/DescriptionCharacter";
 function App() {
   return (
     <BrowserRouter>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 relative h-screen">
         <Sidebar />
-        <div className="content">
+        <div className="col-span-2 lg:col-span-3">
           <Routes>
             <Route path="/:id" element={<DescriptionCharacter />} />
-            <Route path="/" element={<DescriptionCharacter />} />
           </Routes>
         </div>
       </div>

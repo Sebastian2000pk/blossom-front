@@ -13,8 +13,8 @@ export const Sidebar = () => {
   );
 
   return (
-    <div className="px-4 flex flex-col gap-4 bg-[#fbfbfb]">
-      <h1 className="text-2xl font-bold text-[#1F2937]">Rick and Morty list</h1>
+    <div className="px-4 flex flex-col gap-4 bg-[#fbfbfb] h-screen overflow-y-auto">
+      <h1 className="text-2xl font-medium text-[#1F2937]">Rick and Morty list</h1>
 
       {favorites.length ? (
         <section>
