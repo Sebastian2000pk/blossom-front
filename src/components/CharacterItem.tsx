@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Character } from "../interfaces/character";
 import { HeartIcon } from "../icons/HearIcon";
 
@@ -20,7 +22,8 @@ export const CharacterItem = ({
     }
   };
   return (
-    <div
+    <Link
+      to={`/${character.id}`}
       key={character.id}
       className="flex items-center justify-between gap-4 px-4 py-2 border-t border-[#E5E7EB] cursor-pointer hover:bg-[#F3F4F6] transition-all duration-300 ease-in-out"
     >
@@ -41,6 +44,6 @@ export const CharacterItem = ({
           color={Boolean(character.favorite) ? "#53C629" : "#D1D5DB"}
         />
       </button>
-    </div>
+    </Link>
   );
 };

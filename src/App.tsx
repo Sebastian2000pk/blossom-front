@@ -1,28 +1,23 @@
 import "./App.css";
-import { useCharacters } from "./hooks/useCharacters";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
-import { CharacterItem } from "./components/CharacterItem";
+import { Sidebar } from "./components/Sidebar";
+import { DescriptionCharacter } from "./screens/DescriptionCharacter";
 
 function App() {
-  const { characters, addToFavorites, removeFromFavorites } = useCharacters();
-
   return (
-    <div className="px-4">
-      <h1 className="text-2xl font-bold text-[#1F2937]">Rick and Morty list</h1>
-
-      <h3 className="text-[#6B7280] font-semibold">
-        Characters ({characters.length})
-      </h3>
-      {characters.map((character) => (
-        <CharacterItem
-          key={character.id}
-          character={character}
-          addFavorite={addToFavorites}
-          removeFavorite={removeFromFavorites}
-        />
-      ))}
-    </div>
+    <BrowserRouter>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Sidebar />
+        <div className="content">
+          <Routes>
+            <Route path="/:id" element={<DescriptionCharacter />} />
+            <Route path="/" element={<DescriptionCharacter />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
