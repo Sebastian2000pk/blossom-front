@@ -18,10 +18,12 @@ export const CharacterList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [specie, setSpecie] = useState<string>("All");
   const [status, setStatus] = useState<string>("All");
+  const [gender, setGender] = useState<string>("All");
 
   const { characters, addToFavorites, removeFromFavorites } = useCharacters({
     species: specie,
     status,
+    gender,
   });
 
   const favorites = useMemo(
@@ -71,6 +73,14 @@ export const CharacterList = () => {
                     items={STATUS}
                     value={status}
                     onChange={setStatus}
+                  />
+                </section>
+                <section>
+                  <h4 className="text-md font-medium text-[#374151]">Gender</h4>
+                  <SwitchButtons
+                    items={GENDER}
+                    value={gender}
+                    onChange={setGender}
                   />
                 </section>
               </div>
