@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 // Define la consulta para obtener personajes
 export const GET_CHARACTERS = gql`
-  query characters($name: String!, $species: String!) {
-    characters(name: $name, species: $species) {
+  query characters($name: String!, $species: String!, $status: String!) {
+    characters(name: $name, species: $species, status: $status) {
       name
       id
       species

@@ -6,9 +6,13 @@ import { favoriteService } from "../services/favoriteService";
 
 interface UseCharactersProps {
   species?: string;
+  status?: string;
 }
 
-export const useCharacters = ({ species = "" }: UseCharactersProps) => {
+export const useCharacters = ({
+  species = "",
+  status = "",
+}: UseCharactersProps) => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(null);
@@ -16,11 +20,13 @@ export const useCharacters = ({ species = "" }: UseCharactersProps) => {
   useEffect(() => {
     const fetchCharacters = async () => {
       setLoading(true);
+      if (species === "All") species = "";
+      if (status === "All") status = "";
+
       try {
-        if (species === "All") species = "";
         const { data } = await client.query({
           query: GET_CHARACTERS,
-          variables: { name: "", species },
+          variables: { name: "", species, status },
         });
         const favorites = favoriteService.getFavorites();
         const dataCharacters = data.characters.map((character: Character) => ({
@@ -37,7 +43,7 @@ export const useCharacters = ({ species = "" }: UseCharactersProps) => {
     };
 
     fetchCharacters();
-  }, [species]);
+  }, [species, status]);
 
   const addToFavorites = (id: number) => {
     favoriteService.addFavorite(id);

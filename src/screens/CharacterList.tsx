@@ -11,13 +11,17 @@ import { SwitchButtons } from "../components/SwitchButtons";
 import { Button } from "../components/Button";
 
 const SPECIE: string[] = ["All", "Human", "Alien"];
+const STATUS: string[] = ["All", "Alive", "Dead", "unknown"];
+const GENDER: string[] = ["All", "Female", "Male", "unknown"];
 
 export const CharacterList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [specie, setSpecie] = useState<string>("All");
+  const [status, setStatus] = useState<string>("All");
 
   const { characters, addToFavorites, removeFromFavorites } = useCharacters({
     species: specie,
+    status,
   });
 
   const favorites = useMemo(
@@ -61,9 +65,14 @@ export const CharacterList = () => {
                     onChange={setSpecie}
                   />
                 </section>
-                {/* <section>
-                  <h4 className="text-md font-medium text-[#374151]">Specie</h4>
-                </section> */}
+                <section>
+                  <h4 className="text-md font-medium text-[#374151]">Status</h4>
+                  <SwitchButtons
+                    items={STATUS}
+                    value={status}
+                    onChange={setStatus}
+                  />
+                </section>
               </div>
 
               <footer className="mt-auto flex flex-col mb-3">
