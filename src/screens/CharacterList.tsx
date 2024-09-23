@@ -8,17 +8,26 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 import { CharacterItem } from "../components/CharacterItem";
 import { SearchBar } from "../components/SerachBar";
 import { SwitchButtons } from "../components/SwitchButtons";
+import { Button } from "../components/Button";
 
 const SPECIE: string[] = ["All", "Human", "Alien"];
 
 export const CharacterList = () => {
-  const { characters, addToFavorites, removeFromFavorites } = useCharacters();
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
+  const [specie, setSpecie] = useState<string>("All");
+
+  const { characters, addToFavorites, removeFromFavorites } = useCharacters({
+    species: specie,
+  });
 
   const favorites = useMemo(
     () => characters.filter((character) => character.favorite),
     [characters]
   );
+
+  const handleFilter = () => {
+    setIsOpenFilter(false);
+  };
 
   return (
     <div className=" bg-[#fbfbfb] relative">
@@ -30,7 +39,7 @@ export const CharacterList = () => {
         <div className="">
           <SearchBar openModel={() => setIsOpenFilter(true)} />
           {isOpenFilter && (
-            <div className="absolute bg-white w-full h-full border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4">
+            <div className="flex flex-col absolute bg-white w-full h-full border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4">
               <header className="flex items-center">
                 <button
                   className="flex items-center gap-2 hover:bg-[#F3E8FF] px-2 py-1 rounded-full w-10 h-10 active:bg-[#E9D8FD]"
@@ -46,12 +55,20 @@ export const CharacterList = () => {
               <div className="p-2">
                 <section className="flex flex-col gap-2">
                   <h4 className="text-md font-medium text-[#374151]">Specie</h4>
-                  <SwitchButtons items={SPECIE} />
+                  <SwitchButtons
+                    items={SPECIE}
+                    value={specie}
+                    onChange={setSpecie}
+                  />
                 </section>
                 {/* <section>
                   <h4 className="text-md font-medium text-[#374151]">Specie</h4>
                 </section> */}
               </div>
+
+              <footer className="mt-auto flex flex-col mb-3">
+                <Button label="Filter" onClick={handleFilter} />
+              </footer>
             </div>
           )}
         </div>

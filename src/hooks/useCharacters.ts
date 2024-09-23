@@ -4,7 +4,11 @@ import { client } from "../graphql/apolloClient";
 import { GET_CHARACTERS } from "../graphql/queries/characters";
 import { favoriteService } from "../services/favoriteService";
 
-export const useCharacters = () => {
+interface UseCharactersProps {
+  species?: string;
+}
+
+export const useCharacters = ({ species = "" }: UseCharactersProps) => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(null);
@@ -13,9 +17,10 @@ export const useCharacters = () => {
     const fetchCharacters = async () => {
       setLoading(true);
       try {
+        if (species === "All") species = "";
         const { data } = await client.query({
           query: GET_CHARACTERS,
-          variables: { name: "" },
+          variables: { name: "", species },
         });
         const favorites = favoriteService.getFavorites();
         const dataCharacters = data.characters.map((character: Character) => ({
@@ -32,7 +37,7 @@ export const useCharacters = () => {
     };
 
     fetchCharacters();
-  }, []);
+  }, [species]);
 
   const addToFavorites = (id: number) => {
     favoriteService.addFavorite(id);
