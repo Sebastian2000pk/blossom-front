@@ -7,6 +7,9 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 // Components
 import { CharacterItem } from "../components/CharacterItem";
 import { SearchBar } from "../components/SerachBar";
+import { SwitchButtons } from "../components/SwitchButtons";
+
+const SPECIE: string[] = ["All", "Human", "Alien"];
 
 export const CharacterList = () => {
   const { characters, addToFavorites, removeFromFavorites } = useCharacters();
@@ -28,12 +31,27 @@ export const CharacterList = () => {
           <SearchBar openModel={() => setIsOpenFilter(true)} />
           {isOpenFilter && (
             <div className="absolute bg-white w-full h-full border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4">
-              <button
-                className="flex items-center gap-2 hover:bg-[#F3E8FF] px-2 py-1 rounded-full w-10 h-10 active:bg-[#E9D8FD]"
-                onClick={() => setIsOpenFilter(false)}
-              >
-                <ArrowIcon color="#8054C7" />
-              </button>
+              <header className="flex items-center">
+                <button
+                  className="flex items-center gap-2 hover:bg-[#F3E8FF] px-2 py-1 rounded-full w-10 h-10 active:bg-[#E9D8FD]"
+                  onClick={() => setIsOpenFilter(false)}
+                >
+                  <ArrowIcon color="#8054C7" />
+                </button>
+                <h4 className="text-md font-medium w-full text-center pr-10">
+                  Filters
+                </h4>
+              </header>
+
+              <div className="p-2">
+                <section className="flex flex-col gap-2">
+                  <h4 className="text-md font-medium text-[#374151]">Specie</h4>
+                  <SwitchButtons items={SPECIE} />
+                </section>
+                {/* <section>
+                  <h4 className="text-md font-medium text-[#374151]">Specie</h4>
+                </section> */}
+              </div>
             </div>
           )}
         </div>
