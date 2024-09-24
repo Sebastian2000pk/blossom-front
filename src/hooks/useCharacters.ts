@@ -8,12 +8,14 @@ interface UseCharactersProps {
   species?: string;
   status?: string;
   gender?: string;
+  name?: string;
 }
 
 export const useCharacters = ({
   species = "",
   status = "",
   gender = "",
+  name = "",
 }: UseCharactersProps) => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +31,7 @@ export const useCharacters = ({
       try {
         const { data } = await client.query({
           query: GET_CHARACTERS,
-          variables: { name: "", species, status, gender },
+          variables: { name, species, status, gender },
         });
         const favorites = favoriteService.getFavorites();
         const dataCharacters = data.characters.map((character: Character) => ({
@@ -46,7 +48,7 @@ export const useCharacters = ({
     };
 
     fetchCharacters();
-  }, [species, status, gender]);
+  }, [species, status, gender, name]);
 
   const addToFavorites = (id: number) => {
     favoriteService.addFavorite(id);

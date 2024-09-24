@@ -19,6 +19,7 @@ const GENDER: string[] = ["All", "Female", "Male", "unknown"];
 export const CharacterList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState<string>("");
   const [specie, setSpecie] = useState<string>("All");
   const [status, setStatus] = useState<string>("All");
   const [gender, setGender] = useState<string>("All");
@@ -27,6 +28,7 @@ export const CharacterList = () => {
     species: specie,
     status,
     gender,
+    name: search,
   });
 
   const favorites = useMemo(
@@ -38,6 +40,7 @@ export const CharacterList = () => {
     const species = searchParams.get("species");
     const status = searchParams.get("status");
     const gender = searchParams.get("gender");
+    const search = searchParams.get("search");
 
     if (species) {
       setSpecie(species);
@@ -47,6 +50,9 @@ export const CharacterList = () => {
     }
     if (gender) {
       setGender(gender);
+    }
+    if (search) {
+      setSearch(search);
     }
   };
 
@@ -77,6 +83,16 @@ export const CharacterList = () => {
     updateQueryParams();
   };
 
+  const saveSearchParam = () => {
+    if (search !== "") {
+      searchParams.set("search", search);
+    } else {
+      searchParams.delete("search");
+    }
+
+    setSearchParams(searchParams);
+  };
+
   useEffect(() => {
     loadQueryParams();
   }, []);
@@ -93,7 +109,12 @@ export const CharacterList = () => {
         </h1>
 
         <div className="md:relative">
-          <SearchBar openModel={() => setIsOpenFilter(true)} />
+          <SearchBar
+            openModel={() => setIsOpenFilter(true)}
+            onChange={setSearch}
+            value={search}
+            onBlur={saveSearchParam}
+          />
           {isOpenFilter && (
             <div className="flex flex-col absolute bg-white w-full h-full md:h-auto border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4 md:top-11">
               <header className="flex items-center">
