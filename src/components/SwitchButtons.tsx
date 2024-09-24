@@ -9,7 +9,7 @@ export const SwitchButtons = ({
   onChange,
 }: SwitchButtonsProps) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 w-full flex-wrap">
       {items.map((item) => (
         <Button
           label={item}

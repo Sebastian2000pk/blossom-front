@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useCharacters } from "../hooks/useCharacters";
 
 // Icons
@@ -9,6 +10,7 @@ import { CharacterItem } from "../components/CharacterItem";
 import { SearchBar } from "../components/SerachBar";
 import { SwitchButtons } from "../components/SwitchButtons";
 import { Button } from "../components/Button";
+import { Tag } from "../components/Tag";
 
 const SPECIE: string[] = ["All", "Human", "Alien"];
 const STATUS: string[] = ["All", "Alive", "Dead", "unknown"];
@@ -16,6 +18,7 @@ const GENDER: string[] = ["All", "Female", "Male", "unknown"];
 
 export const CharacterList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [specie, setSpecie] = useState<string>("All");
   const [status, setStatus] = useState<string>("All");
   const [gender, setGender] = useState<string>("All");
@@ -31,9 +34,56 @@ export const CharacterList = () => {
     [characters]
   );
 
+  const loadQueryParams = () => {
+    const species = searchParams.get("species");
+    const status = searchParams.get("status");
+    const gender = searchParams.get("gender");
+
+    if (species) {
+      setSpecie(species);
+    }
+    if (status) {
+      setStatus(status);
+    }
+    if (gender) {
+      setGender(gender);
+    }
+  };
+
+  const updateQueryParams = () => {
+    if (specie !== "All") {
+      searchParams.set("species", specie);
+    } else {
+      searchParams.delete("species");
+    }
+
+    if (status !== "All") {
+      searchParams.set("status", status);
+    } else {
+      searchParams.delete("status");
+    }
+
+    if (gender !== "All") {
+      searchParams.set("gender", gender);
+    } else {
+      searchParams.delete("gender");
+    }
+
+    setSearchParams(searchParams);
+  };
+
   const handleFilter = () => {
     setIsOpenFilter(false);
+    updateQueryParams();
   };
+
+  useEffect(() => {
+    loadQueryParams();
+  }, []);
+
+  const filterCount = useMemo(() => {
+    return [specie, status, gender].filter((item) => item !== "All").length;
+  }, [specie, status, gender]);
 
   return (
     <div className=" bg-[#fbfbfb] relative">
@@ -91,6 +141,14 @@ export const CharacterList = () => {
             </div>
           )}
         </div>
+
+        {Boolean(filterCount) && (
+          <div className="flex justify-end gap-2">
+            <Tag>
+              {filterCount} Filter{filterCount > 1 ? "s" : ""}
+            </Tag>
+          </div>
+        )}
 
         {favorites.length ? (
           <section className="flex flex-col gap-4">

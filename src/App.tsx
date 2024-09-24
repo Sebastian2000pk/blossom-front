@@ -12,6 +12,7 @@ function App() {
         <CharacterList />
         <div className="col-span-2 lg:col-span-3">
           <Routes>
+            <Route path="/" element={<div>Selecciona un personaje</div>} />
             <Route path="/:id" element={<DescriptionCharacter />} />
           </Routes>
         </div>
