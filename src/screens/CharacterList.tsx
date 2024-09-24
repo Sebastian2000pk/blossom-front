@@ -86,16 +86,16 @@ export const CharacterList = () => {
   }, [specie, status, gender]);
 
   return (
-    <div className=" bg-[#fbfbfb] relative">
+    <div className="bg-[#fbfbfb] relative">
       <div className=" h-screen overflow-y-auto py-6 gap-4 px-4 flex flex-col">
         <h1 className="text-2xl font-medium text-[#1F2937]">
           Rick and Morty list
         </h1>
 
-        <div className="">
+        <div className="md:relative">
           <SearchBar openModel={() => setIsOpenFilter(true)} />
           {isOpenFilter && (
-            <div className="flex flex-col absolute bg-white w-full h-full border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4">
+            <div className="flex flex-col absolute bg-white w-full h-full md:h-auto border border-[#E5E7EB] md:rounded-md top-0 left-0 z-100 py-2 px-4 md:top-11">
               <header className="flex items-center">
                 <button
                   className="flex items-center gap-2 hover:bg-[#F3E8FF] px-2 py-1 rounded-full w-10 h-10 active:bg-[#E9D8FD]"
