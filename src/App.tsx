@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 // Views
 import { CharacterList } from "./screens/CharacterList";
@@ -7,7 +7,7 @@ import { DescriptionCharacter } from "./screens/DescriptionCharacter";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 relative h-screen">
         <CharacterList />
         <div className="col-span-2 lg:col-span-3">
@@ -17,7 +17,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
