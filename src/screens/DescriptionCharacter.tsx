@@ -7,7 +7,7 @@ import { ArrowIcon } from "../icons/ArrowIcon";
 
 export const DescriptionCharacter = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading } = useCharacter(id!);
+  const { data } = useCharacter(id!);
 
   const navigate = useNavigate();
 
