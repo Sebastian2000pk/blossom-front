@@ -34,7 +34,7 @@ const Button = ({ label, selected, onChange }: ButtonProps) => {
   return (
     <button
       className={`bg-[#FFFFFF] border border-[#E5E7EB] text-[#111827] px-4 py-2 rounded-lg hover:bg-[#F3E8FF] active:bg-[#E9D8FD] hover:border-[#C084FC] active:border-[#8054C7] w-24 ${
-        selected ? "bg-[#F3E8FF]" : ""
+        selected ? " bg-[#E9D8FD]" : ""
       }`}
       onClick={handleClick}
     >
